@@ -9,25 +9,25 @@
  
   <group unless="$(arg use_trajectory_controller)">
     <group unless="$(arg is7dof)">
-      <!-- load the joint by joint position controllers -->  
+      <!-- load the joint by joint effort controllers -->  
       <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="$(arg kinova_robotName)" 
-       args="joint_1_position_controller joint_2_position_controller  
-               joint_3_position_controller joint_4_position_controller
-               joint_5_position_controller joint_6_position_controller 
-               finger_2_position_controller finger_1_position_controller 
-               finger_3_position_controller
+       args="joint_1_effort_controller joint_2_effort_controller  
+               joint_3_effort_controller joint_4_effort_controller
+               joint_5_effort_controller joint_6_effort_controller 
+               finger_2_effort_controller finger_1_effort_controller 
+               finger_3_effort_controller
                joint_state_controller"/> 
     </group>
     <group if="$(arg is7dof)">
-      <!-- load the joint by joint position controllers -->  
+      <!-- load the joint by joint effort controllers -->  
       <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="$(arg kinova_robotName)" 
-       args="joint_1_position_controller joint_2_position_controller  
-               joint_3_position_controller joint_4_position_controller
-               joint_5_position_controller joint_6_position_controller joint_7_position_controller
-               finger_2_position_controller finger_1_position_controller 
-               finger_3_position_controller
+       args="joint_1_effort_controller joint_2_effort_controller  
+               joint_3_effort_controller joint_4_effort_controller
+               joint_5_effort_controller joint_6_effort_controller joint_7_effort_controller
+               finger_2_effort_controller finger_1_effort_controller 
+               finger_3_effort_controller
                joint_state_controller"/> 
     </group>
   </group>
