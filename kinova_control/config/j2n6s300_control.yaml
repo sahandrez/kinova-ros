@@ -107,7 +107,7 @@ j2n6s300:
       d: 0
       i: 0
       p: 10
-    type: effort_controllers/JointEffortControbkhller
+    type: effort_controllers/JointEffortController
   finger_3_effort_controller:
     joint: j2n6s300_joint_finger_3
     pid:
