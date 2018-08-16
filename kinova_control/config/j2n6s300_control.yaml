@@ -107,7 +107,7 @@ j2n6s300:
       d: 0
       i: 0
       p: 10
-    type: effort_controllers/JointEffortController
+    type: effort_controllers/JointEffortControbkhller
   finger_3_effort_controller:
     joint: j2n6s300_joint_finger_3
     pid:
@@ -120,42 +120,42 @@ j2n6s300:
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_2_effort_controller:
     joint: j2n6s300_joint_2
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_3_effort_controller:
     joint: j2n6s300_joint_3
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_4_effort_controller:
     joint: j2n6s300_joint_4
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_5_effort_controller:
     joint: j2n6s300_joint_5
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_6_effort_controller:
     joint: j2n6s300_joint_6
     pid:
       d: 0
       i: 0
-      p: 10
+      p: 20
     type: effort_controllers/JointEffortController
   joint_state_controller:
     publish_rate: 50
