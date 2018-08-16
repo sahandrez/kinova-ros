@@ -19,6 +19,9 @@
         <view_controller>orbit</view_controller>
       </camera>
     </gui>
+    
+    <!-- reference to the plugin -->
+    <plugin name="kinova_plugin" filename="libkinova_plugin.so"/>
 
   </world>
 </sdf>

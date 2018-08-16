@@ -9,6 +9,7 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="use_trajectory_controller" default="true"/>
+  <arg name="use_ros_control" default="true"/>
   <arg name="is7dof" default="false"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
@@ -30,12 +31,19 @@
     args="-urdf -model $(arg kinova_robotName) -param robot_description"/>
 
   <!-- ros_control launch file -->
-  <include file="$(find kinova_control)/launch/kinova_control.launch">
-    <arg name="kinova_robotName" value="$(arg kinova_robotName)"/>
-    <arg name="kinova_robotType" value="$(arg kinova_robotType)"/>
-    <arg name="use_trajectory_controller" value="$(arg use_trajectory_controller)"/>
-    <arg name="is7dof" value="$(arg is7dof)"/>
-  </include>
+  <group if="$(arg use_ros_control)">
+  	<include file="$(find kinova_control)/launch/kinova_control.launch">
+    	<arg name="kinova_robotName" value="$(arg kinova_robotName)"/>
+    	<arg name="kinova_robotType" value="$(arg kinova_robotType)"/>
+    	<arg name="use_trajectory_controller" value="$(arg use_trajectory_controller)"/>
+    	<arg name="is7dof" value="$(arg is7dof)"/>
+  	</include>
+	</group>
+	
+	<!-- use direct joint effort commands instead of ros-control -->
+	<group unless="$(arg use_ros_control)">
+		<!-- In this case the kinova-plugin will take care of everything -->
+	</group>
 
   <!-- rqt launch file -->
   <!--  
