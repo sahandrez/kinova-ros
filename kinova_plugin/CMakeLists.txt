@@ -132,6 +132,10 @@ add_library(
   ${PROJECT_NAME} src/kinova_plugin.cpp
 )
 
+target_link_libraries(
+  kinova_plugin ${GAZEBO_LIBRARIES}
+)
+
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/kinova_plugin.cpp

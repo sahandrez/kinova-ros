@@ -18,10 +18,7 @@
         <pose>4.927360 -4.376610 3.740080 0.000000 0.275643 2.356190</pose>
         <view_controller>orbit</view_controller>
       </camera>
-    </gui>
-    
-    <!-- reference to the plugin -->
-    <plugin name="kinova_plugin" filename="libkinova_plugin.so"/>
+    </gui>    
 
   </world>
 </sdf>

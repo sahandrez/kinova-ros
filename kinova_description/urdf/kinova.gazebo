@@ -10,6 +10,8 @@
         <robotNamespace>${robot_namespace}</robotNamespace>
         <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
+			
+			<plugin name="kinova_plugin" filename="libkinova_plugin.so"/>
     </gazebo>
 
 </xacro:macro>
