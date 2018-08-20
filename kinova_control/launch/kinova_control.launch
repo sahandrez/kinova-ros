@@ -2,43 +2,55 @@
   <arg name="kinova_robotType" default="j2n6s300"/>
   <arg name="kinova_robotName" default="$(arg kinova_robotType)"/>  
   <arg name="use_trajectory_controller" default="true"/>
+  <arg name="use_ros_control" default="true"/>
   <arg name="is7dof" default="false"/>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find kinova_control)/config/$(arg kinova_robotName)_control.yaml" command="load"/>
  
-  <group unless="$(arg use_trajectory_controller)">
-    <group unless="$(arg is7dof)">
-      <!-- load the joint by joint effort controllers -->  
-      <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false"
-        output="screen" ns="$(arg kinova_robotName)" 
-       args="joint_1_effort_controller joint_2_effort_controller  
-               joint_3_effort_controller joint_4_effort_controller
-               joint_5_effort_controller joint_6_effort_controller 
-               finger_2_effort_controller finger_1_effort_controller 
-               finger_3_effort_controller
-               joint_state_controller"/> 
-    </group>
-    <group if="$(arg is7dof)">
-      <!-- load the joint by joint effort controllers -->  
-      <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false"
-        output="screen" ns="$(arg kinova_robotName)" 
-       args="joint_1_effort_controller joint_2_effort_controller  
-               joint_3_effort_controller joint_4_effort_controller
-               joint_5_effort_controller joint_6_effort_controller joint_7_effort_controller
-               finger_2_effort_controller finger_1_effort_controller 
-               finger_3_effort_controller
-               joint_state_controller"/> 
+  <group if="$(arg use_ros_control)">
+    <group unless="$(arg use_trajectory_controller)">
+      <group unless="$(arg is7dof)">
+        <!-- load the joint by joint effort controllers -->  
+        <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false" 
+              output="screen" ns="$(arg kinova_robotName)" 
+              args="joint_1_effort_controller joint_2_effort_controller  
+                    joint_3_effort_controller joint_4_effort_controller
+                    joint_5_effort_controller joint_6_effort_controller 
+                    finger_2_effort_controller finger_1_effort_controller 
+                    finger_3_effort_controller
+                    joint_state_controller"/> 
+      </group>
+      <group if="$(arg is7dof)">
+        <!-- load the joint by joint effort controllers -->  
+        <node name="$(arg kinova_robotName)_joints_controller" pkg="controller_manager" type="spawner" respawn="false"
+              output="screen" ns="$(arg kinova_robotName)" 
+              args="joint_1_effort_controller joint_2_effort_controller  
+                    joint_3_effort_controller joint_4_effort_controller
+                    joint_5_effort_controller joint_6_effort_controller joint_7_effort_controller
+                    finger_2_effort_controller finger_1_effort_controller 
+                    finger_3_effort_controller
+                    joint_state_controller"/> 
+      </group>
     </group>
   </group>
 
-  <group if="$(arg use_trajectory_controller)">
-    <!-- Effort Joint trajectory controller-->
-    <node name="$(arg kinova_robotName)_trajectory_controller" pkg="controller_manager" type="spawner" 
-      output="screen" ns="$(arg kinova_robotName)" 
-      args="effort_joint_trajectory_controller
-      effort_finger_trajectory_controller    
-      joint_state_controller"/>    
+  <group if="$(arg use_ros_control)">
+    <group if="$(arg use_trajectory_controller)">
+      <!-- Effort Joint trajectory controller-->
+      <node name="$(arg kinova_robotName)_trajectory_controller" pkg="controller_manager" type="spawner" 
+            output="screen" ns="$(arg kinova_robotName)" 
+            args="effort_joint_trajectory_controller
+                  effort_finger_trajectory_controller    
+                  joint_state_controller"/>    
+    </group>
+  </group>
+
+  <group unless="$(arg use_ros_control)">
+    <!-- Directly applying joint torques to the robot using a plugin implemented in kinova_plugin package -->
+    <node name="$(arg kinova_robotName)_direct_commander" pkg="controller_manager" type="spawner"
+          output="screen" ns="$(arg kinova_robotName)"
+          args="joint_state_controller"/>
   </group>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
