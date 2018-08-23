@@ -7,6 +7,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Float32MultiArray.h"
+#include "sensor_msgs/JointState.h"
 
 #define HOLD_FRAMES 100
 
@@ -49,7 +50,7 @@ namespace gazebo
                                         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
                                                         boost::bind(&ModelPush::OnUpdate, this, _1));
 					this->n = new ros::NodeHandle("kinova_plugin");
-					this->joint_state_pub = n->advertise<std_msgs::Float32MultiArray>("j2n6s300/joint_state", 1);
+					this->joint_state_pub = n->advertise<sensor_msgs::JointState>("j2n6s300/joint_state", 1);
 					this->joint_effort_sub = n->subscribe("j2n6s300/joint_effort", 1, &ModelPush::JointEffortCallback, this);
 					this->pastCommandCounter = 0;
 					this->applyPastCommand = false;
@@ -60,10 +61,16 @@ namespace gazebo
                                 // Called by the world update start event
                 public: void OnUpdate(const common::UpdateInfo & _info)/*_info*/
                                 {
-					std::vector<float> ang_arr;
-					std::vector<float> vel_arr;
-					std::vector<float> state_arr;
+					sensor_msgs::JointState joint_state;
                                         physics::Joint_V joints = this->model->GetJoints();
+
+					//get time					
+					ros::Time current_time = ros::Time::now();
+					joint_state.header.stamp = current_time;
+
+					joint_state.name.resize(joints.size() - 1);
+					joint_state.position.resize(joints.size() - 1);
+					joint_state.velocity.resize(joints.size() - 1);
 
 					if (this->applyPastCommand)
 					{
@@ -82,22 +89,14 @@ namespace gazebo
 
                                         for (int i = 1; i < joints.size(); i++)
                                         {
-                                                //std::cout << joints[i]->GetAngle(0) << " blarg" << std::endl;
-						ang_arr.push_back( joints[i]->GetAngle(0).Radian() );
-						vel_arr.push_back( joints[i]->GetVelocity(0));
-                                        }
-                                        //concatenate two vectors
-                                        state_arr.reserve( ang_arr.size() + vel_arr.size() + 1 );
-					state_arr.insert(state_arr.end(), ang_arr.begin(), ang_arr.end() );
-					state_arr.insert(state_arr.end(), vel_arr.begin(), vel_arr.end() );
-                                        state_arr.insert(state_arr.end(), _info.simTime.Float() );
-                                        
-					//std::cout << "----"<< _info.simTime.Float() << std::endl;
+						
+						joint_state.name[i-1] = joints[i]->GetName();
+						joint_state.position[i-1] = joints[i]->GetAngle(0).Radian();
+						joint_state.velocity[i-1] = joints[i]->GetVelocity(0);
+
+                                        }														
 					
-					std_msgs::Float32MultiArray msg;
-					msg.data = state_arr;
-					
-					this->joint_state_pub.publish(msg);
+					this->joint_state_pub.publish(joint_state);
                                         
                                 }
 
