@@ -146,6 +146,12 @@ install(DIRECTORY include/${PROJECT_NAME}/
   FILES_MATCHING PATTERN "*.h"
 )
 
+## Emergency stop 
+add_executable(kinova_emergency_stop
+  src/nodes/kinova_emergency_stop.cpp)
+target_link_libraries(kinova_emergency_stop ${catkin_LIBRARIES})
+add_dependencies(kinova_emergency_stop ${catkin_EXPORTED_TARGETS})
+
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 #  install(FILES
 ## myfile1
