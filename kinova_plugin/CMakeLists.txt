@@ -129,7 +129,7 @@ link_directories(
 list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
 add_library(
-  ${PROJECT_NAME} src/kinova_plugin.cpp
+  ${PROJECT_NAME} src/joint_effort_plugin.cpp
 )
 
 target_link_libraries(
@@ -138,7 +138,7 @@ target_link_libraries(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/kinova_plugin.cpp
+#   src/${PROJECT_NAME}/joint_effort_plugin.cpp
 # )
 
 ## Add cmake target dependencies of the library
