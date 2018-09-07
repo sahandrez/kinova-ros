@@ -195,8 +195,10 @@ KinovaArm::KinovaArm(KinovaComm &arm, const ros::NodeHandle &nodeHandle, const s
     /* Set up Publishers */
     joint_angles_publisher_ = node_handle_.advertise<kinova_msgs::JointAngles>
             ("out/joint_angles", 2);
-    joint_torque_publisher_ = node_handle_.advertise<kinova_msgs::JointAngles>
-            ("out/joint_torques", 2);
+    actual_joint_torque_publisher_ = node_handle_.advertise<kinova_msgs::JointAngles>
+            ("out/actual_joint_torques", 2);
+    compensated_joint_torque_publisher_ = node_handle_.advertise<kinova_msgs::JointAngles>
+            ("out/compensated_joint_torques", 2);
     joint_state_publisher_ = node_handle_.advertise<sensor_msgs::JointState>
             ("out/joint_state", 2);
     tool_position_publisher_ = node_handle_.advertise<geometry_msgs::PoseStamped>
@@ -598,14 +600,23 @@ void KinovaArm::publishJointAngles(void)
 
 
     // Joint torques (effort)
+    // Modified to publish both the actual and compensated joint torques
     KinovaAngles joint_tqs;
+    KinovaAngles actual_joint_tqs;
+    KinovaAngles compensated_joint_tqs;
+
+    kinova_comm_.getJointTorques(actual_joint_tqs);
+    kinova_comm_.getGravityCompensatedTorques(compensated_joint_tqs);
+
+    actual_joint_torque_publisher_.publish(actual_joint_tqs.constructAnglesMsg());
+    compensated_joint_torque_publisher_.publish(compensated_joint_tqs.constructAnglesMsg());
+
     bool gravity_comp;
     node_handle_.param("torque_parameters/publish_torque_with_gravity_compensation", gravity_comp, false);
     if (gravity_comp==true)
-      kinova_comm_.getGravityCompensatedTorques(joint_tqs);
+      joint_tqs = compensated_joint_tqs;
     else
-      kinova_comm_.getJointTorques(joint_tqs);
-    joint_torque_publisher_.publish(joint_tqs.constructAnglesMsg());
+      joint_tqs = actual_joint_tqs;
 
     joint_state.effort.resize(joint_total_number_);
     joint_state.effort[0] = joint_tqs.Actuator1;
@@ -700,9 +711,9 @@ void KinovaArm::publishFingerPosition(void)
 void KinovaArm::statusTimer(const ros::TimerEvent&)
 {
     publishJointAngles();
-    //publishToolPosition();
-    //publishToolWrench();
-    //publishFingerPosition();
+    // publishToolPosition();
+    // publishToolWrench();
+    // publishFingerPosition();
 }
 
 }  // namespace kinova

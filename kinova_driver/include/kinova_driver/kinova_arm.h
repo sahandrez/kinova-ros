@@ -125,7 +125,8 @@ class KinovaArm
 
     ros::Publisher joint_angles_publisher_;
     ros::Publisher tool_position_publisher_;
-    ros::Publisher joint_torque_publisher_;
+    ros::Publisher actual_joint_torque_publisher_;
+    ros::Publisher compensated_joint_torque_publisher_;
     ros::Publisher tool_wrench_publisher_;
     ros::Publisher finger_position_publisher_;
     ros::Publisher joint_state_publisher_;
