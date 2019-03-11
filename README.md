@@ -1,5 +1,5 @@
-# Table of Contents
-- [Important](#important)
+# Table of Contents 
+- [Important](#important) 
 - [Kinova-ROS](#kinova-ros)
   - [Supported versions](#supported-versions)
   - [Gazebo](#gazebo)
@@ -438,6 +438,6 @@ Other plugins in rqt can similarly be used for quick interation with the robot.
 
 
 ## Report a Bug
-Any bugs, issues or suggestions may be sent to ros@kinovarobotics.com.
+Any bugs, issues or suggestions may be sent to support@kinova.ca
 
 
