@@ -1,4 +1,4 @@
-//============================================================================
+ //============================================================================
 // Name        : kinova_arm.cpp
 // Author      : WPI, Clearpath Robotics
 // Version     : 0.5
@@ -222,7 +222,7 @@ KinovaArm::KinovaArm(KinovaComm &arm, const ros::NodeHandle &nodeHandle, const s
     cartesian_force_subscriber_ = node_handle_.subscribe("in/cartesian_force", 1,
                                   &KinovaArm::forceSubscriberCallback, this);
 
-    node_handle_.param<double>("status_interval_seconds", status_interval_seconds_, 0.025);
+    node_handle_.param<double>("status_interval_seconds", status_interval_seconds_, 0.02);
 
     // Depending on the API version, the arm might return velocities in the
     // 0..360 range (0..180 for positive values, 181..360 for negative ones).
