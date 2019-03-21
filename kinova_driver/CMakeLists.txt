@@ -74,21 +74,21 @@ add_executable(kinova_arm_driver
   src/nodes/kinova_arm_driver.cpp
 )
 
-add_executable(joint_trajectory_action_server 
+add_executable(joint_trajectory_action_server
   src/joint_trajectory_action/joint_trajectory_action_server.cpp
   include/kinova_driver/joint_trajectory_action_server.h)
-target_link_libraries(joint_trajectory_action_server 
+target_link_libraries(joint_trajectory_action_server
   ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${kinova_driver_LIBRARIES})
-install(TARGETS joint_trajectory_action_server 
+install(TARGETS joint_trajectory_action_server
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 add_dependencies(joint_trajectory_action_server ${catkin_EXPORTED_TARGETS})
 
-add_executable(gripper_command_action_server 
-  src/joint_trajectory_action/gripper_command_action_server.cpp 
+add_executable(gripper_command_action_server
+  src/joint_trajectory_action/gripper_command_action_server.cpp
   include/kinova_driver/gripper_command_action_server.h)
-target_link_libraries(gripper_command_action_server 
+target_link_libraries(gripper_command_action_server
   ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${kinova_driver_LIBRARIES})
-install(TARGETS gripper_command_action_server 
+install(TARGETS gripper_command_action_server
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 add_dependencies(gripper_command_action_server ${catkin_EXPORTED_TARGETS})
 
@@ -145,6 +145,12 @@ install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
 )
+
+## Emergency stop
+add_executable(kinova_emergency_stop
+  src/nodes/kinova_emergency_stop.cpp)
+target_link_libraries(kinova_emergency_stop ${catkin_LIBRARIES})
+add_dependencies(kinova_emergency_stop ${catkin_EXPORTED_TARGETS})
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 #  install(FILES

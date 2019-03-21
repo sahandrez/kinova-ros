@@ -1,4 +1,4 @@
-# Set this parameter to use a specific arm on your system    --> 
+# Set this parameter to use a specific arm on your system    -->
 # serial_number: PJ00000001030703130
 
 # Joint speed limit for joints 1, 2, 3
@@ -10,7 +10,7 @@ jointSpeedLimitParameter2: 20
 # payload: [COM COMx COMy COMz]
 #payload: [0, 0, 0, 0]
 
-connection_type: USB #Ethernet 
+connection_type: USB #Ethernet
 
 # Ethernet connection parameters
 ethernet: {
