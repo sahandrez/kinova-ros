@@ -10,6 +10,10 @@
         <robotNamespace>${robot_namespace}</robotNamespace>
         <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
+
+      <!-- Plugin for sending joint torque commands directly to the robot -->
+      <plugin name="kinova_plugin" filename="libkinova_plugin.so"/>
+      
     </gazebo>
 
 </xacro:macro>
