@@ -158,5 +158,48 @@ j2n6s300:
       p: 500
     type: effort_controllers/JointPositionController
   joint_state_controller:
-    publish_rate: 50
+    publish_rate: 1000
     type: joint_state_controller/JointStateController
+  
+  joint_1_effort_controller:
+    joint: j2n6s300_joint_1
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController
+  joint_2_effort_controller:
+    joint: j2n6s300_joint_2
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController
+  joint_3_effort_controller:
+    joint: j2n6s300_joint_3
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController
+  joint_4_effort_controller:
+    joint: j2n6s300_joint_4
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController
+  joint_5_effort_controller:
+    joint: j2n6s300_joint_5
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController
+  joint_6_effort_controller:
+    joint: j2n6s300_joint_6
+    pid:
+      d: 0
+      i: 0
+      p: 5000
+    type: effort_controllers/JointEffortController

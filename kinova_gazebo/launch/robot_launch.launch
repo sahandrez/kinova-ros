@@ -8,7 +8,8 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="use_trajectory_controller" default="true"/>
+  <arg name="use_trajectory_controller" default="false"/>
+  <arg name="use_effort_controller" default="false"/>
   <arg name="use_ros_control" default="true"/>
   <arg name="is7dof" default="false"/>
 
@@ -35,6 +36,7 @@
   	<arg name="kinova_robotName" value="$(arg kinova_robotName)"/>
   	<arg name="kinova_robotType" value="$(arg kinova_robotType)"/>
   	<arg name="use_trajectory_controller" value="$(arg use_trajectory_controller)"/>
+    <arg name="use_effort_controller" value="$(arg use_effort_controller)"/>
     <arg name="use_ros_control" value="$(arg use_ros_control)"/>
   	<arg name="is7dof" value="$(arg is7dof)"/>
   </include>
