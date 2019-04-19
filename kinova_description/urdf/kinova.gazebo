@@ -13,7 +13,10 @@
       </plugin>
 
       <!-- Plugin for sending joint torque commands directly to the robot -->
-      <plugin name="kinova_plugin" filename="libkinova_plugin.so"/>
+      <!-- <plugin name="joint_effort_plugin" filename="libjoint_effort_plugin.so"/> -->
+
+      <!-- Plugin for applying force interaction to the end effector -->
+      <!-- <plugin name="interaction_plugin" filename="libinteraction_plugin.so"/> -->
 
     </gazebo>
 

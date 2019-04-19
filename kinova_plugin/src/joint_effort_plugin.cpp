@@ -48,13 +48,13 @@ class ModelPush : public ModelPlugin
         // simulation iteration.
         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
             boost::bind(&ModelPush::OnUpdate, this, _1));
-        this->n = new ros::NodeHandle("joint_effort_plugin");
-        this->joint_state_pub = n->advertise<sensor_msgs::JointState>("j2n6s300/joint_state", 1);
-        this->joint_effort_sub = n->subscribe("j2n6s300/joint_effort", 1, &ModelPush::JointEffortCallback, this);
+        this->n = new ros::NodeHandle("j2n6s300");
+        this->joint_state_pub = n->advertise<sensor_msgs::JointState>("joint_effort_plugin/joint_state", 1);
+        this->joint_effort_sub = n->subscribe("joint_effort_plugin/joint_effort", 1, &ModelPush::JointEffortCallback, this);
         this->pastCommandCounter = 0;
         this->applyPastCommand = false;
 
-        ROS_INFO("Finished loading Kinova Jaco Plugin.");
+        ROS_INFO("Finished loading joint effort plugin.");
     }
 
     // Called by the world update start event
